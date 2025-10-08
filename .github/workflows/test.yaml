@@ -1,4 +1,4 @@
-name: test
+name: Kirby cms 92i
 
 # 🔁 Déclenchement du workflow à chaque push sur la branche main
 on:
@@ -16,5 +16,9 @@ jobs:
         uses: actions/checkout@v4
 
       # Étape 2 — Exécute un simple script
-      - name: test yaml
+      - name: deploy
         run: docker compose up -d
+
+      # Étape 3 — test integration
+      - name: integration
+        run: curl http://localhost
