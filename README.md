@@ -1,73 +1,62 @@
-# Docker/Kirby StarterKit
-[![Release](https://img.shields.io/github/release/S1SYPHOS/Docker-Kirby-Starter-Kit.svg)](https://github.com/S1SYPHOS/Docker-Kirby-Starter-Kit/releases) [![License](https://img.shields.io/github/license/S1SYPHOS/Docker-Kirby-Starter-Kit.svg)](https://github.com/S1SYPHOS/Docker-Kirby-Starter-Kit/blob/master/LICENSE) [![Issues](https://img.shields.io/github/issues/S1SYPHOS/Docker-Kirby-Starter-Kit.svg)](https://github.com/S1SYPHOS/Docker-Kirby-Starter-Kit/issues)
+# 🛠 Gulp-Kirby Starter Kit — Documentation
 
-**You heard about Kirby CMS and want to use it on your next project? You want to harness the power of Docker? Then THIS is for you!**
+## 1. Introduction
+Ce projet combine Kirby CMS avec une stack Docker (Nginx + PHP‑FPM). Il fournit un environnement reproductible pour le développement et l’onboarding rapide.
 
-Here's my personal (thus opinionated) Docker+Kirby boilerplate, starring:
-- [Kirby CMS v3](https://getkirby.com) - a file‑based CMS that's 'easy to setup, easy to use & flexible as hell'
-- [Docker Compose](https://docs.docker.com/compose/overview) - a tool for defining and running multi-container Docker applications
+Le **Gulp-Kirby Starter Kit** est un boilerplate permettant de démarrer rapidement un projet **Kirby CMS (v3)** avec une chaîne de build front basée sur **Gulp v4**.
 
-**Table of Contents**
-- [1. Requirements](#requirements)
-- [2. Getting started](#getting-started)
-- [3. Configuration](#configuration)
-- [4. Credits](#credits)
+Il propose notamment :
 
-## Requirements
-- Working [Docker environment](https://docs.docker.com/compose/gettingstarted)
-- [Composer](https://getcomposer.org)
+- Compilation **Sass/CSS**
+- Minification **HTML / CSS / JS**
+- Optimisation des **images**
+- Génération de **sprites SVG**
+- Création de **favicons**
+- **Font subsetting** (réduction du poids des polices)
+- **Cache busting** via fingerprinting + intégration avec Kirby
+- **Serveur de développement** intégré (PHP / proxy / BrowserSync)
+- Structure **modulaire** via des tâches Gulp séparées
+- **Configuration centralisée** dans `config.js`
 
-## Getting started
-Download or clone this repository, then install the [Gulp/Kirby StarterKit](https://github.com/S1SYPHOS/Gulp-Kirby-Starter-Kit) (or any other Kirby project):
+## Stack & services
 
-```text
-# Composer
-composer create-project s1syphos/gulp-kirby-starter-kit htdocs --no-dev --prefer-dist
+### Fichier
+- **`docker-compose.yml`**
 
-# Git
-git clone https://github.com/S1SYPHOS/Gulp-Kirby-Starter-Kit.git htdocs
+### Services
+- **nginx (web)**
+  - Image : `nginx:stable`
+  - Écoute : `:80` (exposé sur l’hôte en `:80`)
+  - Docroot : `/app`
 
-# Move docker configuration files
-mv docker htdocs/
-```
+- **php (php-fpm)**
+  - Image : `php:8.2-fpm-alpine`
+  - Communication avec Nginx via **socket Unix** (volume `sock`)
+  - Extensions : `gd`, `imagick` (PECL), etc.
 
-Now just type `docker-compose up` and code away!
+### Volumes partagés
+- `sock` → `/sock` — socket Unix partagé Nginx ↔ PHP-FPM  
+- `./htdocs` → `/app` — code, contenu, `vendor/`, `index.php`
 
-## Configuration
-This boilerplate assumes that `index.php` is stored inside `htdocs`:
+### Notes
+- **nginx** sert l’application depuis **`/app`** (mode “(1) : `index.php` dans `htdocs/`”).  
+- **php** exécute **PHP-FPM 8.2** ; le même dossier hôte est monté dans **`/app`**.
 
-```text
-htdocs/
-├── assets
-├── content
-├── kirby
-├── site
-└── index.php
-```
-
-However, for a [more secure setup](https://getkirby.com/docs/guide/configuration#custom-folder-setup) (and some extra straightforwardness), the following structure is recommended:
-
-```text
-htdocs/
-├── content
-├── kirby
-├── public
-│   ├── assets
-│   ├── .htaccess
-│   └── index.php
-├── site
-└── storage
-    ├── accounts
-    ├── cache
-    └── sessions
+### URL par défaut
+- **http://localhost** (port `80`)  
+  > Ajustable via `docker-compose.yml` (clé `ports`, ex. `"80:80"`).
 
 
-```
+## Prérequis d’installation (poste dev)
 
-The webserver only exposes the `public` directory, which contains `assets`, `index.php` and `.htaccess`. For this to work, simply move some files around, update your `index.php` (Gulp/Kirby StarterKit [got your back](https://github.com/S1SYPHOS/Gulp-Kirby-Starter-Kit/blob/master/index.php)) and `docker-compose.yml` (just comment/uncomment some lines).
+Docker Engine/Desktop 24+ avec Docker Compose v2.20+.
 
-## Credits
-@rasteiner's [k3-dockercompose-starterkit](https://github.com/rasteiner/k3-dockercompose-starterkit) inspired this boilerplate - he deserves all the credit.
+## Schéma de l’infra
+![schéma infra](./assets/img/image-1.png)
 
-## Special Thanks
-I'd like to thank everybody that's making great software - you people are awesome. Also I'm always thankful for feedback and bug reports :)
+
+## Références
+
+Repo Starter: S1SYPHOS/Gulp-Kirby-Starter-Kit
+
+Kirby CMS docs: getkirby.com (installation, panel, configuration)
