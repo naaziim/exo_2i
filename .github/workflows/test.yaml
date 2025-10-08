@@ -16,5 +16,5 @@ jobs:
         uses: actions/checkout@v4
 
       # Étape 2 — Exécute un simple script
-      - name: Say Hello World
+      - name: test yaml
         run: docker compose up -d
