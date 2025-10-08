@@ -1,15 +1,7 @@
 FROM php:8.2-fpm-alpine
 
 # --- Proxy support during build ---
-ARG http_proxy
-ARG https_proxy
-ARG no_proxy
-ENV http_proxy=http://172.30.230.135:8080
-ENV https_proxy=http://172.30.230.135:8080
-ENV HTTP_PROXY=http://172.30.230.135:8080
-ENV HTTPS_PROXY=http://172.30.230.135:8080
-ENV no_proxy=172.17.93.32,.epic.prolival.fr,127.0.0.1
-ENV NO_PROXY=172.17.93.32,.epic.prolival.fr,127.0.0.1
+
 
 # --- Alpine repositories ---
 RUN echo "https://dl-cdn.alpinelinux.org/alpine/v3.20/main" > /etc/apk/repositories && \
@@ -17,7 +9,6 @@ RUN echo "https://dl-cdn.alpinelinux.org/alpine/v3.20/main" > /etc/apk/repositor
 
 # --- System build dependencies & PHP extensions ---
 RUN set -ex \
-    && export http_proxy=$HTTP_PROXY https_proxy=$HTTPS_PROXY \
     && apk update && apk add --no-cache \
         autoconf \
         g++ \
@@ -58,7 +49,6 @@ RUN set -ex \
 
 # --- Optional: install Composer globally ---
 RUN set -ex \
-    && export http_proxy=$HTTP_PROXY https_proxy=$HTTPS_PROXY \
     && curl -L https://getcomposer.org/installer -o composer-setup.php \
     && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
     && rm composer-setup.php
