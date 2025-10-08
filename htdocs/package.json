@@ -1,0 +1,90 @@
+{
+  "name": "gulp-kirby-starter-kit",
+  "version": "2.0.0-beta.2",
+  "description": "Getting started with Gulp v4 & Kirby v3 in no-time",
+  "author": "S1SYPHOS <hello@twobrain.io>",
+  "homepage": "https://github.com/S1SYPHOS/Gulp-Kirby-Starter-Kit#readme",
+  "main": "Gulpfile.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/S1SYPHOS/Gulp-Kirby-Starter-Kit.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/S1SYPHOS/Gulp-Kirby-Starter-Kit/issues"
+  },
+  "keywords": ["gulp", "kirby", "cms", "starterkit"],
+  "scripts": {
+    "start": "gulp",
+    "build": "NODE_ENV=production gulp build",
+    "deploy": "NODE_ENV=production gulp build && gulp deploy",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "browser-sync": "^2.26.3",
+    "child_process": "^1.0.2",
+    "del": "^6.0.0",
+    "eslint": "^7.12.1",
+    "eslint-config-google": "^0.14.0",
+    "fs": "0.0.1-security",
+    "glyphhanger": "^3.2.0",
+    "gulp": "^4.0.0",
+    "gulp-autoprefixer": "^7.0.1",
+    "gulp-babel": "^8.0.0",
+    "gulp-clean-css": "^4.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-connect-php": "^1.0.3",
+    "gulp-eslint": "^6.0.0",
+    "gulp-favicons": "^2.3.0",
+    "gulp-filter": "^6.0.0",
+    "gulp-flatten": "^0.4.0",
+    "gulp-if": "^3.0.0",
+    "gulp-imagemin": "^7.1.0",
+    "gulp-newer": "^1.4.0",
+    "gulp-rename": "^2.0.0",
+    "gulp-sass": "^4.0.2",
+    "gulp-stylelint": "^13.0.0",
+    "gulp-svgmin": "^3.0.0",
+    "gulp-svgstore": "^7.0.1",
+    "gulp-uglify": "^3.0.2",
+    "imagemin-pngquant": "^9.0.1",
+    "penthouse": "^2.3.2",
+    "stylelint": "^13.7.2",
+    "stylelint-config-sass-guidelines": "^7.1.0",
+    "vinyl-named": "^1.1.0",
+    "webpack-stream": "^6.1.0"
+  },
+  "stylelint": {
+    "extends": "stylelint-config-sass-guidelines",
+    "rules": {}
+  },
+  "eslintConfig": {
+    "extends": [
+      "eslint:recommended",
+      "google"
+    ],
+    "env": {
+      "browser": true,
+      "node": true,
+      "es6": true,
+      "amd": true,
+      "commonjs": true
+    },
+    "parserOptions": {
+      "sourceType": "module"
+    },
+    "rules": {
+      "indent": ["error", 2],
+      "max-len": ["warn", {"ignoreComments": true}],
+      "require-jsdoc": ["off"],
+      "one-var": ["off"]
+    }
+  },
+  "browserslist": [
+    "last 3 versions",
+    "> 1%",
+    "IE >= 9"
+  ]
+}
