@@ -1,6 +1,6 @@
 # 🛠 Gulp-Kirby Starter Kit — Documentation
 
-## 1. Introduction
+## Introduction
 Ce projet combine Kirby CMS avec une stack Docker (Nginx + PHP‑FPM). Il fournit un environnement reproductible pour le développement et l’onboarding rapide.
 
 Le **Gulp-Kirby Starter Kit** est un boilerplate permettant de démarrer rapidement un projet **Kirby CMS (v3)** avec une chaîne de build front basée sur **Gulp v4**.
@@ -57,6 +57,5 @@ Docker Engine/Desktop 24+ avec Docker Compose v2.20+.
 
 ## Références
 
-Repo Starter: S1SYPHOS/Gulp-Kirby-Starter-Kit
-
-Kirby CMS docs: getkirby.com (installation, panel, configuration)
+- **Repo Starter :** [S1SYPHOS/Gulp-Kirby-Starter-Kit](https://github.com/S1SYPHOS/Gulp-Kirby-Starter-Kit)
+- **Kirby CMS docs :** [getkirby.com/docs](https://getkirby.com/docs)
