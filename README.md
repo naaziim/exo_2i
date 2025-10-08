@@ -59,3 +59,62 @@ Docker Engine/Desktop 24+ avec Docker Compose v2.20+.
 
 - **Repo Starter :** [S1SYPHOS/Gulp-Kirby-Starter-Kit](https://github.com/S1SYPHOS/Gulp-Kirby-Starter-Kit)
 - **Kirby CMS docs :** [getkirby.com/docs](https://getkirby.com/docs)
+
+## 📈 Monitoring (Uptime Kuma)
+
+**But :** surveiller que le site est up et recevoir une alerte en cas de panne.
+
+### Emplacement & lancement
+
+-   Fichier : `./monitoring/docker-compose.yml`
+    
+-   Démarrer :
+    
+    docker compose -f monitoring/docker-compose.yml up -d
+    
+-   Accès UI : **http://localhost:3001**
+    
+    > Au premier lancement, créez l’admin (Uptime Kuma vous le demande).
+    
+
+### Ajouter une sonde (monitor)
+
+  **New Monitor** → Type **HTTP(s)**
+    
+  **Name** : `Kirby`
+    
+  **URL** :
+    
+    -   En local (Docker Desktop / WSL2) : `http://localhost`
+        
+    -   Si la sonde tourne dans un autre réseau Docker sous Linux, utilisez :
+        
+        -   `http://host.docker.internal` (si disponible)
+            
+        -   ou la **gateway Docker** (souvent `http://172.17.0.1`)
+            
+        -   ou un **nom de domaine/URL publique** si exposé
+            
+  **Heartbeat Interval** : 60s (par ex.)
+    
+  **Retries** : 3
+    
+  **Save**
+    
+> Astuce : si vos conteneurs (site et monitoring) partagent un réseau Docker commun, vous pouvez cibler `http://nginx:80` (nom du service) et éviter le passage par le host.
+
+### Ajouter des alertes (Notifications)
+
+  **Settings → Notifications → Add New Notification**
+    
+  Choisissez un canal et renseignez les champs :
+    
+    -   **Email (SMTP)** : serveur, port, TLS, user/pass, `From`, `To`
+        
+    -   **Telegram** : Bot Token + Chat ID
+        
+    -   **Discord / Slack** : Webhook URL
+        
+    -   **Webhook générique** : URL HTTP/POST (payload JSON au choix)
+        
+  **Save**, puis retournez sur la sonde → **Notifications** → associez le canal
