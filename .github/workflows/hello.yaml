@@ -1,0 +1,26 @@
+name: Hello World CI
+
+# 🔁 Déclenchement du workflow à chaque push sur la branche main
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  say-hello:
+    runs-on: ubuntu-latest  # Le job tourne sur une machine virtuelle Ubuntu
+
+    steps:
+      # Étape 1 — Récupère ton code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Étape 2 — Exécute un simple script
+      - name: Say Hello World
+        run: echo "Hello World from GitHub Actions!"
+
+      # Étape 3 — Une variable d'environnement en bonus
+      - name: Say Hello to a specific name
+        env:
+          NAME: "NovaCloud DevOps"
+        run: echo "Hello $NAME, your CI/CD pipeline is alive!"
