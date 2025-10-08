@@ -54,6 +54,25 @@ Docker Engine/Desktop 24+ avec Docker Compose v2.20+.
 ## Schéma de l’infra
 ![schéma infra](./assets/img/image-1.png)
 
+### 🚀 Déploiement de l’application
+
+Une fois les prérequis installés, vous pouvez lancer l’environnement de développement complet avec :
+
+```bash
+docker compose up -d
+```
+
+Cela démarre automatiquement les services **Nginx** et **PHP-FPM**, puis monte le code source dans les conteneurs.  
+L’application est alors accessible sur :
+
+👉 **http://localhost**
+
+> Pour arrêter les services :
+> ```bash
+> docker compose down
+> ```
+
+
 
 ## Références
 
