@@ -19,6 +19,10 @@ services:
     build:
       context: htdocs
       dockerfile: docker/php.dockerfile
+      args:                     # 👈 move args here under build
+        - HTTP_PROXY=${HTTP_PROXY}
+        - HTTPS_PROXY=${HTTPS_PROXY}
+        - NO_PROXY=${NO_PROXY}
     volumes:
       - sock:/sock
       # (1)
@@ -28,13 +32,32 @@ services:
       # - ./htdocs/site:/app/site
       # - ./htdocs/storage:/app/storage
       # - ./htdocs/vendor:/app/vendor
+    environment:
+      - http_proxy=${http_proxy}
+      - https_proxy=${https_proxy}
+      - HTTP_PROXY=${HTTP_PROXY}
+      - HTTPS_PROXY=${HTTPS_PROXY}
+      - no_proxy=${no_proxy}
+      - NO_PROXY=${NO_PROXY}
     networks:
       - php-net
+
 
   nginx:
     build:
       context: htdocs
       dockerfile: docker/nginx.dockerfile
+      args:
+        - HTTP_PROXY=${HTTP_PROXY}
+        - HTTPS_PROXY=${HTTPS_PROXY}
+        - NO_PROXY=${NO_PROXY}
+    environment:
+      - http_proxy=${http_proxy}
+      - https_proxy=${https_proxy}
+      - HTTP_PROXY=${HTTP_PROXY}
+      - HTTPS_PROXY=${HTTPS_PROXY}
+      - no_proxy=${no_proxy}
+      - NO_PROXY=${NO_PROXY}      
     ports:
       - 80:80
     volumes:
